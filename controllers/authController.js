@@ -38,6 +38,37 @@ const registerController = async(req, res) => {
     }
 }
 
+const loginController = async(req, res) => {
+    try {
+        const { email, password } = req.body
+        if (!email || !password) {
+            return res.status(500).send({
+                success: false,
+                message: "Please fill email and password fields"
+            })
+        }
+        const user = await userModel.findOne({ email: email, password: password })
+        if (!user) {
+            return res.status(500).send({
+                success: false,
+                message: "User not found"
+            })
+        }
+        res.status(200).send({
+            sucess: true,
+            message: "Login success",
+            user
+        })
+    } catch (error) {
+        console.log(error)
+        res.status(500).send({
+            success: false,
+            message: "Error in Login Controller",
+            error
+        })
+    }
+
+}
 
 
-module.exports = { registerController }
+module.exports = { registerController, loginController }
