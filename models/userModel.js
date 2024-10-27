@@ -31,7 +31,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: "https://www.flaticon.com/free-icon/user_149071"
     },
-
+    answer:{
+        type: String,
+        required: [true, 'Please provide an answer'],
+    }
 }, {
     timestamps: true
 })
