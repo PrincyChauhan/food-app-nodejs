@@ -27,7 +27,7 @@ const registerController = async(req, res) => {
             email: email,
             password: hashedPassword,
             address: address,
-            phone: phone
+            phone: phone,
         });
         res.status(200).send({
             success: true,
