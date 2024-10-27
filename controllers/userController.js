@@ -71,7 +71,7 @@ const updatePasswordController = async (req, res) => {
     if (!user) {
       return res.status(404).send({
         success: false,
-        message: "Usre Not Found",
+        message: "User Not Found",
       });
     }
     const { oldPassword, newPassword } = req.body;
@@ -88,8 +88,10 @@ const updatePasswordController = async (req, res) => {
         message: "Invalid old password",
       });
     }
+
     var salt = bcrypt.genSaltSync(10);
     const hashedPassword = await bcrypt.hash(newPassword, salt);
+
     user.password = hashedPassword;
     await user.save();
     res.status(200).send({
