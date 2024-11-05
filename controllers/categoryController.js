@@ -50,4 +50,32 @@ const getAllCategoryController = async (req, res) => {
   }
 };
 
-module.exports = { createController, getAllCategoryController };
+const updateCategoryController = async () => {
+  try {
+    const { id } = req.params;
+    const { title, imageUrl } = req.body;
+    const updatedCategory = await categoryModel.findByIdAndUpdate(
+      id,
+      { title, imageUrl },
+      { new: true }
+    );
+    if (!updatedCategory) {
+      return res.status(500).send({
+        success: false,
+        message: "No Category Found",
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Error in Update API",
+    });
+  }
+};
+
+module.exports = {
+  createController,
+  getAllCategoryController,
+  updateCategoryController,
+};
